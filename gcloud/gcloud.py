@@ -18,7 +18,7 @@ GROUP_NUMBER = "43"
 DEPLOY_COMMANDS = [
     "sudo apt update",
     "sudo apt install -y git python3-pip",
-    # "[ -d practica_creativa2 ] && rm -rf practica_creativa2",
+    "rm -rf practica_creativa2",
     "git clone https://github.com/CDPS-ETSIT/practica_creativa2.git",
     f"pip3 install -r {APP_PATH}/requirements.txt",
     "sed -i \"/block\\ title/ s/}.*{/}%s{/\" %s/templates/productpage.html" % (GROUP_NUMBER, APP_PATH),
