@@ -74,6 +74,7 @@ def list_instances(project_id: str, zones: list) -> typing.Iterable[gcp.Instance
 
 def deploy():
     for sh_cmd in DEPLOY_COMMANDS:
+        proc = None
         try:
             cmd = f"gcloud compute ssh {INSTANCE_NAME} --zone={INSTANCE_ZONE} --project={PROJECT_ID} --command='{sh_cmd}'"
             print(f"Executing '{sh_cmd}'")
@@ -83,8 +84,9 @@ def deploy():
             proc.check_returncode()
         except sp.CalledProcessError:
             print(f"Error executing command: {sh_cmd}")
-            print(f"{proc.stdout.decode('utf-8')}")
-            print(f"{proc.stderr.decode('utf-8')}")
+            if proc:
+                print(f"{proc.stdout.decode('utf-8')}")
+                print(f"{proc.stderr.decode('utf-8')}")
             exit(0)
 
 def main():
