@@ -9,9 +9,32 @@ services:
       - "80:80"
     links:
       - details
+      - reviews
   details:
     container_name: 43-details
     build: ./details
     image: 43/details
+    expose:
+      - "9080"
+  reviews:
+    container_name: 43-reviews
+    build: 
+      context: ./reviews/reviews-wlpcfg
+      args:
+        service_version: v2
+        enable_ratings: true
+        star_color: black
+    image: 43/reviews
+    links: 
+      - ratings
+    expose:
+      - "9080"
+  ratings:
+    container_name: 43-ratings
+    build: 
+      context: ./ratings
+      args:
+          service_version: v2
+    image: 43/ratings
     expose:
       - "9080"
