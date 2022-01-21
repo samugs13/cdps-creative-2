@@ -1,0 +1,15 @@
+version: "2.2.3"
+
+services:
+  productpage:
+    container_name: 43-productpage
+    build: ./productpage
+    ports:
+      - "80:80"
+    links:
+      - details
+  details:
+    container_name: 43-details
+    build: ./details
+    expose:
+      - "9080"
