@@ -1,5 +1,6 @@
 FROM node:12.18.1-slim
-ENV SERVICE_VERSION=v1
+ARG service_version
+ENV SERVICE_VERSION ${service_version:-v1}
 EXPOSE 9080
 RUN apt update
 RUN apt install git -y
