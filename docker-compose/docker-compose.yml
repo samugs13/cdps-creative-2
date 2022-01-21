@@ -4,6 +4,7 @@ services:
   productpage:
     container_name: 43-productpage
     build: ./productpage
+    image: 43/productpage
     ports:
       - "80:80"
     links:
@@ -11,5 +12,6 @@ services:
   details:
     container_name: 43-details
     build: ./details
+    image: 43/details
     expose:
       - "9080"
