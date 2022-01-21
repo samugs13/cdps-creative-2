@@ -1,6 +1,8 @@
 FROM ruby:2.7.1-slim
-ENV SERVICE_VERSION=v1
-ENV ENABLE_EXTERNAL_BOOK_SERVICE=true
+ARG service_version
+ARG enable_external_book_service
+ENV SERVICE_VERSION ${service_version:-v1}
+ENV ENABLE_EXTERNAL_BOOK_SERVICE ${enable_external_book_service:-true}
 EXPOSE 9080
 RUN apt update
 RUN apt install git -y
