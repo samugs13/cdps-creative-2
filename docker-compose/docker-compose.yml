@@ -20,6 +20,15 @@ services:
     image: 43/details:v1
     expose:
       - "9080"
+  ratings:
+    container_name: 43-ratings
+    build:
+      context: ./ratings
+      args:
+          service_version: v1
+    image: 43/ratings:v1
+    expose:
+      - "9080"
   reviews:
     container_name: 43-reviews
     build:
@@ -35,12 +44,27 @@ services:
       - STAR_COLOR=red
     links:
       - ratings
-  ratings:
-    container_name: 43-ratings
+  reviews-v2:
+    container_name: 43-reviews-v2
     build:
-      context: ./ratings
+      context: ./reviews/reviews-wlpcfg
       args:
-          service_version: v1
-    image: 43/ratings:v1
-    expose:
-      - "9080"
+        service_version: v2
+        enable_ratings: true
+        star_color: black
+    image: 43/reviews:v2
+    environment:
+      - SERVICE_VERSION=v2
+      - ENABLE_RATINGS=true
+      - STAR_COLOR=black
+    links:
+      - ratings
+  reviews-v1:
+    container_name: 43-reviews-v1
+    build:
+      context: ./reviews/reviews-wlpcfg
+      args:
+        service_version: v1
+    image: 43/reviews:v1
+    environment:
+      - SERVICE_VERSION=v1
