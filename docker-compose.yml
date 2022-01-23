@@ -3,7 +3,7 @@ version: "2.2.3"
 services:
   productpage:
     container_name: 43-productpage
-    build: ./productpage
+    build: ./docker/productpage
     image: 43/productpage
     ports:
       - "80:80"
@@ -13,7 +13,7 @@ services:
   details:
     container_name: 43-details
     build:
-      context: ./details
+      context: ./docker/details
       args:
         service_version: v1
         enable_external_book_service: true
@@ -23,7 +23,7 @@ services:
   ratings:
     container_name: 43-ratings
     build:
-      context: ./ratings
+      context: ./docker/ratings
       args:
           service_version: v1
     image: 43/ratings:v1
@@ -32,7 +32,7 @@ services:
   reviews:
     container_name: 43-reviews
     build:
-      context: ./reviews/reviews-wlpcfg
+      context: ./docker/reviews/reviews-wlpcfg
       args:
         service_version: v3
         enable_ratings: true
@@ -47,7 +47,7 @@ services:
   reviews-v2:
     container_name: 43-reviews-v2
     build:
-      context: ./reviews/reviews-wlpcfg
+      context: ./docker/reviews/reviews-wlpcfg
       args:
         service_version: v2
         enable_ratings: true
@@ -62,7 +62,7 @@ services:
   reviews-v1:
     container_name: 43-reviews-v1
     build:
-      context: ./reviews/reviews-wlpcfg
+      context: ./docker/reviews/reviews-wlpcfg
       args:
         service_version: v1
     image: 43/reviews:v1
