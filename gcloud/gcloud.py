@@ -9,7 +9,7 @@ import google.cloud.compute_v1 as gcp
 
 # Constants
 PROJECT_ID = "cdps-creative-2"
-INSTANCE_NAME = "instance-4"
+INSTANCE_NAME = "instance-1"
 INSTANCE_ZONE = "europe-west1-b"
 GOOGLE_APPLICATION_CREDENTIALS = "./key.json"
 APP_PATH = "practica_creativa2/bookinfo/src/productpage"
