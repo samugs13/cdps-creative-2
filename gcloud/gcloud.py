@@ -52,16 +52,7 @@ def create():
     except sp.CalledProcessError:
         exit(0)
 
-def list_instances(project_id: str, zones: list) -> typing.Iterable[gcp.Instance]:
-    """
-    List all instances in the given zone in the specified project.
-
-    Args:
-        project_id: project ID or project number of the Cloud project you want to use.
-        zone: name of the zone you want to use. For example: “us-west3-b”
-    Returns:
-        An iterable collection of Instance objects.
-    """
+def list_instances(project_id: str, zones: list):
     instance_client = gcp.InstancesClient()
     instances = {}
     for zone in zones:
