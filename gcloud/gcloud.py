@@ -11,6 +11,7 @@ import google.cloud.compute_v1 as gcp
 PROJECT_ID = "cdps-creative-2"
 INSTANCE_NAME = "instance-1"
 INSTANCE_ZONE = "europe-west1-b"
+SERVICE_ACCOUNT_NAME = "europe-west1-b"
 GOOGLE_APPLICATION_CREDENTIALS = "./key.json"
 APP_PATH = "practica_creativa2/bookinfo/src/productpage"
 APP_PORT = "9080"
@@ -43,7 +44,7 @@ def get_zones():
 
 def create():
     try:
-        cmd = f"gcloud compute instances create {INSTANCE_NAME} --project={PROJECT_ID} --zone={INSTANCE_ZONE} --machine-type=e2-medium --network-interface=network-tier=PREMIUM,subnet=default --maintenance-policy=MIGRATE --service-account=cdps-2@cdps-creative-2.iam.gserviceaccount.com --scopes=https://www.googleapis.com/auth/cloud-platform --tags=http-server,https-server --create-disk=auto-delete=yes,boot=yes,device-name={INSTANCE_NAME},image=projects/debian-cloud/global/images/debian-10-buster-v20211209,mode=rw,size=10,type=projects/{PROJECT_ID}/zones/{INSTANCE_ZONE}/diskTypes/pd-balanced --no-shielded-secure-boot --shielded-vtpm --shielded-integrity-monitoring --reservation-affinity=any"
+        cmd = f"gcloud compute instances create {INSTANCE_NAME} --project={PROJECT_ID} --zone={INSTANCE_ZONE} --machine-type=e2-medium --network-interface=network-tier=PREMIUM,subnet=default --maintenance-policy=MIGRATE --service-account={SERVICE_ACCOUNT_NAME}@{PROJECT_ID}.iam.gserviceaccount.com --scopes=https://www.googleapis.com/auth/cloud-platform --tags=http-server,https-server --create-disk=auto-delete=yes,boot=yes,device-name={INSTANCE_NAME},image=projects/debian-cloud/global/images/debian-10-buster-v20211209,mode=rw,size=10,type=projects/{PROJECT_ID}/zones/{INSTANCE_ZONE}/diskTypes/pd-balanced --no-shielded-secure-boot --shielded-vtpm --shielded-integrity-monitoring --reservation-affinity=any"
         proc = sp.run(
             cmd.split(" "), stdout=sp.PIPE, stderr=sp.DEVNULL
         )
