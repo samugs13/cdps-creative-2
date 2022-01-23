@@ -11,7 +11,7 @@ import google.cloud.compute_v1 as gcp
 PROJECT_ID = "cdps-creative-2"
 INSTANCE_NAME = "instance-1"
 INSTANCE_ZONE = "europe-west1-b"
-SERVICE_ACCOUNT_NAME = "europe-west1-b"
+SERVICE_ACCOUNT_NAME = "cdps-2"
 GOOGLE_APPLICATION_CREDENTIALS = "./key.json"
 APP_PATH = "practica_creativa2/bookinfo/src/productpage"
 APP_PORT = "9080"
@@ -23,7 +23,7 @@ DEPLOY_COMMANDS = [
     "git clone https://github.com/CDPS-ETSIT/practica_creativa2.git",
     f"pip3 install -r {APP_PATH}/requirements.txt",
     "sed -i \"/block\\ title/ s/}.*{/}%s{/\" %s/templates/productpage.html" % (GROUP_NUMBER, APP_PATH),
-    f"setsid -f python3 {APP_PATH}/productpage_monolith.py {APP_PORT}",
+    f"setsid -f python3 {APP_PATH}/productpage_monolith.py {APP_PORT} > productpage.log 2>&1",
 ]
 
 def init():
