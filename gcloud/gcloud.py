@@ -26,8 +26,11 @@ DEPLOY_COMMANDS = [
     f"setsid -f python3 {APP_PATH}/productpage_monolith.py {APP_PORT} > productpage.log 2>&1",
 ]
 
-def init():
-    os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = GOOGLE_APPLICATION_CREDENTIALS
+def init(credentials: str = GOOGLE_APPLICATION_CREDENTIALS):
+    if not os.path.exists(credentials):
+        print(f"Error: {credentials} does not exist")
+        exit(0)
+    os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = credentials
 
 def get_zones(regex: str = None):
     try:
@@ -95,7 +98,6 @@ def deploy(
             exit(0)
 
 def main():
-    init()
     if len(sys.argv) > 1:
         # Get arguments
         if "--zone" in sys.argv:
@@ -133,7 +135,15 @@ def main():
             zones = None
             regex = None
 
+        if "--credentials" in sys.argv:
+            credentials = sys.argv[sys.argv.index("--credentials") + 1]
+            sys.argv.remove("--credentials")
+            sys.argv.remove(credentials)
+        else:
+            credentials = GOOGLE_APPLICATION_CREDENTIALS
+
         # Execute commands
+        init(credentials)
         if sys.argv[1] == "create":
             create(zone, name, id)
         elif sys.argv[1] == "lszones":
